@@ -5,8 +5,8 @@ from sklearn.metrics import r2_score
 
 # Задаємо константи для 15 варіанту задачі 1
 a = 2
-b = 3
-c = 1
+b = 0
+c = 3
 
 # Генеруємо дані
 x = np.arange(0, 20)
