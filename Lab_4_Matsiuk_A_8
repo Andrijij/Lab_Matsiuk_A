@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 
-# Значення для варіанту 15
-a, b, c, d = 2, 1, 1, 1
+# Значення для варіанту 14 задача 8
+a, b, c, d = 2, 0, 3, 1
 s = 0.5
 
 # Генерація даних
