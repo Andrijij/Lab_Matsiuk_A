@@ -1,0 +1,53 @@
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+import matplotlib.pyplot as plt
+
+# Значення для варіанту 15
+a, b, c, d = 2, 1, 1, 1
+
+# Вхідні дані
+x = np.array([[0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4],
+              [0,0,0,0,1,1,1,1,1,1,2,2,2,2,3,3,3,3,4,4]])
+
+# Цільова змінна
+y = a*x[0]**2 + b*x[1]**2 + c*x[0]*x[1] + d*x[0] + a*x[1] + b + np.random.normal(0, 1 + d, x.shape[1])
+
+# Поліноміальні ознаки (2-го ступеня)
+poly = PolynomialFeatures(degree=2)
+X_poly = poly.fit_transform(x.T)
+
+# Розбиваємо на тренувальні і тестові дані
+X_train, X_test, y_train, y_test = train_test_split(X_poly, y, test_size=0.3, random_state=42)
+
+# Модель лінійної регресії
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Прогнозування
+y_pred = model.predict(X_test)
+
+# Коефіцієнт детермінації (R²)
+r2 = r2_score(y_test, y_pred)
+
+# Виведення результатів
+print(f"Коефіцієнти моделі: {model.coef_}")
+print(f"Вільний член: {model.intercept_}")
+print(f"Коефіцієнт детермінації R²: {r2}")
+
+# Прогноз у довільній точці (наприклад, x0 = 2, x1 = 3)
+point = np.array([[2, 3]])
+point_poly = poly.transform(point)
+prediction = model.predict(point_poly)
+print(f"Прогноз для точки (2, 3): {prediction}")
+
+# Графік
+plt.scatter(x[0], y, color='blue', label='Дані')
+plt.scatter(X_test[:, 1], y_pred, color='red', label='Прогноз')
+plt.title('Поліноміальна регресія')
+plt.xlabel('x0')
+plt.ylabel('y')
+plt.legend()
+plt.show()

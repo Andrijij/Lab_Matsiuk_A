@@ -1,0 +1,41 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+# Задаємо константи для 15 варіанту задачі 1
+a = 2
+b = 3
+c = 1
+
+# Генеруємо дані
+x = np.arange(0, 20)
+y = a * x + b + np.random.normal(0, 1 + c, 20)
+
+# Перетворюємо x для використання в моделі
+x_reshaped = x.reshape(-1, 1)
+
+# Створюємо та навчаємо лінійну регресійну модель
+model = LinearRegression()
+model.fit(x_reshaped, y)
+
+# Виконуємо прогноз
+y_pred = model.predict(x_reshaped)
+
+# Обчислюємо коефіцієнт детермінації (R²)
+r_squared = r2_score(y, y_pred)
+
+# Виводимо результати
+print(f"Коефіцієнт нахилу (a): {model.coef_[0]}")
+print(f"Вільний член (b): {model.intercept_}")
+print(f"Коефіцієнт детермінації (R²): {r_squared}")
+
+# Побудова графіку
+plt.scatter(x, y, color="blue", label="Дані")
+plt.plot(x, y_pred, color="red", label="Лінія регресії")
+plt.title("Лінійна регресійна модель (Варіант 15)")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()

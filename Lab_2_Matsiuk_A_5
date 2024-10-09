@@ -1,0 +1,58 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.model_selection import train_test_split
+
+# Задаємо значення для 15 варіанту задачі 5
+a = 2
+b = 3
+c = 1
+d = 1
+
+# Генеруємо дані
+x = np.array([[0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4],
+              [0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4,4]])
+
+y = a*x[0] + b*x[1] + c + np.random.normal(0, 1+d, 25)
+
+# Перетворюємо y у бінарну змінну (класифікація)
+y = (y > y.mean()).astype(int)
+
+# Розділяємо дані на тренувальний і тестовий набори
+x_train, x_test, y_train, y_test = train_test_split(x.T, y, test_size=0.3, random_state=42)
+
+# Створюємо та навчаємо логістичну регресійну модель
+model = LogisticRegression()
+model.fit(x_train, y_train)
+
+# Прогнозування на тестових даних
+y_pred = model.predict(x_test)
+
+# Метрики класифікації
+accuracy = accuracy_score(y_test, y_pred)
+report = classification_report(y_test, y_pred)
+
+# Виводимо коефіцієнти моделі та точність
+print(f"Коефіцієнти моделі: {model.coef_}")
+print(f"Вільний член: {model.intercept_}")
+print(f"Точність моделі: {accuracy}")
+print("Класифікаційний звіт:")
+print(report)
+
+# Побудова графіку
+plt.scatter(x[0], x[1], c=y, cmap='bwr', label="Дані")
+plt.title("Класифікаційна модель (Варіант 15)")
+plt.xlabel("x[0]")
+plt.ylabel("x[1]")
+
+# Побудуємо межу прийняття рішень
+x0_range = np.linspace(0, 4, 100)
+x1_range = np.linspace(0, 4, 100)
+X0, X1 = np.meshgrid(x0_range, x1_range)
+Z = model.predict(np.c_[X0.ravel(), X1.ravel()]).reshape(X0.shape)
+
+plt.contourf(X0, X1, Z, alpha=0.2, cmap='bwr')
+plt.colorbar()
+plt.legend()
+plt.show()
