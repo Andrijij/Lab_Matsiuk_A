@@ -5,10 +5,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import r2_score
 
-# Значення для 15 варіанту завдання 3
+# Значення для 14 варіанту завдання 3
 a = 2
-b = 3
-c = 1
+b = 0
+c = 3
 d = 1
 
 # Генерація даних
@@ -47,7 +47,7 @@ print(f"Коефіцієнт детермінації (R²) на всіх дан
 # Побудова графіку
 plt.scatter(x, y, color="blue", label="Дані")
 plt.plot(x, y_pred, color="red", label="Поліноміальна регресія")
-plt.title("Поліноміальна регресія (Варіант 15)")
+plt.title("Поліноміальна регресія (Варіант 14)")
 plt.xlabel("x")
 plt.ylabel("y")
 plt.legend()
