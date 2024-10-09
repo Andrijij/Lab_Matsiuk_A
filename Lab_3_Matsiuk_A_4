@@ -5,8 +5,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
 
-# Значення для варіанту 15
-a, b, c, d = 2, 1, 1, 1
+# Значення для варіанту 14
+a, b, c, d = 2, 0, 3, 1
 
 # Вхідні дані
 x = np.array([[0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4],
